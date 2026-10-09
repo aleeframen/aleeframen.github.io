@@ -152,12 +152,17 @@
   });
 
   const stage = $(".character-stage");
+  const modelLoadTimeout = setTimeout(() => {
+    if (characterState === "loading") characterFallback("Model loading timed out. Please refresh to try again.");
+  }, 45000);
   function characterFallback(message) {
+    clearTimeout(modelLoadTimeout);
     model = undefined;
     characterState = "fallback";
     $("#model-host").hidden = true;
     $("#model-status").textContent = message;
     $("#character-label").textContent = "Character unavailable.";
+    stage.dataset.characterState = "unavailable";
     stage.classList.remove("model-ready");
     updateMotion();
   }
@@ -169,8 +174,8 @@
     model.animationCrossfadeDuration = 420;
     model.animationName = data.character.sleepAnimation;
     if (!paused) model.play({repetitions: Infinity});
-    await model.updateComplete;
     $("#character-label").textContent = "Click me!";
+    await model.updateComplete;
     updateMotion();
   }
   async function wake() {
@@ -204,7 +209,10 @@
   // The library loads only when a custom model is configured.
   if (data.character.model) {
     const source = new URL(data.character.model, location.href);
-    if (source.origin !== location.origin || !source.pathname.endsWith(".glb")) return;
+    if (source.origin !== location.origin || !source.pathname.endsWith(".glb")) {
+      characterFallback("The model URL must point to a local GLB file.");
+      return;
+    }
     const script = document.createElement("script");
     script.type = "module";
     script.src = "https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js";
@@ -239,9 +247,10 @@
           return;
         }
         model = candidate;
+        clearTimeout(modelLoadTimeout);
         $("#model-host").hidden = false;
         stage.classList.add("model-ready");
-        sleep();
+        sleep().catch(() => characterFallback("Model animation could not start. Please refresh to try again."));
       });
       candidate.addEventListener("error", () => {
         characterFallback("Custom character unavailable. Please refresh to try again.");
@@ -253,5 +262,7 @@
       $("#model-host").style.inset = "0";
     });
     document.head.append(script);
+  } else {
+    characterFallback("No model has been configured.");
   }
 })();

@@ -151,91 +151,13 @@
     if (reducedMotion.matches) { cancelAnimationFrame(glowFrame); glowFrame = 0; }
   });
 
-  // A small original block-character preview, rendered without a 3D dependency.
-  // This is not an exported Roblox asset. Replace it through content.js when ready.
-  const canvas = $("#character");
-  const ctx = canvas.getContext("2d");
-  let width = 400, height = 390, phase = 0, waveUntil = 3, last = 0;
-  let look = 0, targetLook = 0, visible = true;
-  const rotateZ = ([x,y,z], angle) => [x*Math.cos(angle)-y*Math.sin(angle), x*Math.sin(angle)+y*Math.cos(angle), z];
-  const rotateY = ([x,y,z], angle) => [x*Math.cos(angle)+z*Math.sin(angle), y, -x*Math.sin(angle)+z*Math.cos(angle)];
-  const resize = () => {
-    const bounds = canvas.getBoundingClientRect();
-    width = bounds.width; height = bounds.height;
-    const ratio = Math.min(devicePixelRatio || 1, 2);
-    canvas.width = width * ratio; canvas.height = height * ratio;
-    ctx.setTransform(ratio,0,0,ratio,0,0);
-  };
-  new ResizeObserver(resize).observe(canvas);
-  $(".character-stage").addEventListener("pointermove", event => {
-    const bounds = canvas.getBoundingClientRect();
-    targetLook = ((event.clientX - bounds.left) / bounds.width - .5) * .45;
-  });
-  $(".character-stage").addEventListener("pointerleave", () => { targetLook = 0; });
-  if ("IntersectionObserver" in window) new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }).observe(canvas);
-  const faceIndices = [[0,1,2,3],[4,7,6,5],[0,4,5,1],[3,2,6,7],[1,5,6,2],[0,3,7,4]];
-  function render() {
-    ctx.clearRect(0,0,width,height);
-    const scale = Math.min(width / 6.3, height / 6.5);
-    const bob = paused ? 0 : Math.sin(phase*2)*.045;
-    const yaw = -.32 + look;
-    const tilt = -.12;
-    const world = point => {
-      const [x,y,z] = rotateY(point, yaw);
-      return [x, y*Math.cos(tilt)-z*Math.sin(tilt)+bob, y*Math.sin(tilt)+z*Math.cos(tilt)];
-    };
-    const project = ([x,y,z]) => { const perspective = 9/(9-z); return [width/2+x*scale*perspective,height*.43-y*scale*perspective]; };
-    ctx.fillStyle = "#00000040";
-    ctx.beginPath();ctx.ellipse(width/2,height*.81,scale*1.12,scale*.16,0,0,Math.PI*2);ctx.fill();
-    const faces = [];
-    function box(center, size, palette, joint = center, angle = 0) {
-      const [sx,sy,sz] = size.map(v=>v/2);
-      const points = [[-sx,-sy,-sz],[sx,-sy,-sz],[sx,sy,-sz],[-sx,sy,-sz],[-sx,-sy,sz],[sx,-sy,sz],[sx,sy,sz],[-sx,sy,sz]].map(p => {
-        const relative = p.map((v,i)=>v+center[i]-joint[i]);
-        const rotated = rotateZ(relative, angle).map((v,i)=>v+joint[i]);
-        return world(rotated);
-      });
-      faceIndices.forEach((indices,i)=>faces.push({points:indices.map(n=>points[n]),color:palette[i%palette.length],depth:indices.reduce((sum,n)=>sum+points[n][2],0)/4}));
-    }
-    const stone = ["#8b9299","#c9d2dc","#9da7b2","#dce5ed","#b2bdc9","#a2acb8"];
-    const blue = ["#57738e","#a9cffa","#769aba","#c2dfff","#94bbdf","#7396b8"];
-    const legs = ["#444b54","#687585","#505b6a","#7d8b9d","#65758a","#4d5b70"];
-    const waving = !paused && phase < waveUntil;
-    const waveAngle = waving ? -2.1 + Math.sin(phase*9)*.25 : -.08;
-    box([-.35,-1.05,0],[.6,1.25,.65],legs);
-    box([.35,-1.05,0],[.6,1.25,.65],legs);
-    box([0,.17,0],[1.3,1.35,.7],blue);
-    box([-.98,.05,0],[.55,1.35,.62],stone,[-.98,.62,0],waveAngle);
-    box([.98,.05,0],[.55,1.35,.62],stone,[.98,.62,0],paused?0:Math.sin(phase*2)*.035);
-    box([0,1.35,0],[.9,.9,.85],stone);
-    // Face details are flat polygons on the front of the head.
-    for (const x of [-.17,.17]) {
-      faces.push({points:[[x-.028,1.37,.43],[x+.028,1.37,.43],[x+.028,1.48,.43],[x-.028,1.48,.43]].map(world),color:"#273126",depth:world([x,1.43,.44])[2]+.01});
-    }
-    faces.sort((a,b)=>a.depth-b.depth).forEach(face=>{
-      const points = face.points.map(project);
-      ctx.beginPath();points.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();ctx.fillStyle=face.color;ctx.fill();ctx.strokeStyle="#10161018";ctx.lineWidth=.6;ctx.stroke();
-    });
-    const mouth = [-.16,-.08,0,.08,.16].map(x=>project(world([x,1.23+x*x*1.8,.44])));
-    ctx.beginPath();mouth.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.strokeStyle="#273126";ctx.lineWidth=2;ctx.lineCap="round";ctx.stroke();
-  }
-  function frame(now) {
-    const dt = Math.min((now-last)/1000,.05); last=now;
-    if (visible && !document.hidden && !model) {
-      if (!paused) { phase+=dt; look+=(targetLook-look)*Math.min(dt*5,1); }
-      render();
-    }
-    requestAnimationFrame(frame);
-  }
-  if (ctx) requestAnimationFrame(frame);
   const stage = $(".character-stage");
   function characterFallback(message) {
     model = undefined;
     characterState = "fallback";
-    canvas.hidden = false;
     $("#model-host").hidden = true;
     $("#model-status").textContent = message;
-    $("#character-label").textContent = "Character preview.";
+    $("#character-label").textContent = "Character unavailable.";
     stage.classList.remove("model-ready");
     updateMotion();
   }
@@ -286,7 +208,7 @@
     const script = document.createElement("script");
     script.type = "module";
     script.src = "https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js";
-    script.addEventListener("error", () => characterFallback("Custom character unavailable. Showing the block-character preview."));
+    script.addEventListener("error", () => characterFallback("Custom character unavailable. Please refresh to try again."));
     script.addEventListener("load", async () => {
       await customElements.whenDefined("model-viewer");
       const candidate = document.createElement("model-viewer");
@@ -313,20 +235,19 @@
       });
       candidate.addEventListener("load", () => {
         if (![data.character.sleepAnimation, data.character.wakeAnimation].every(name => candidate.availableAnimations.includes(name))) {
-          characterFallback("The model must contain both Sleep and Wake animations. Showing the block-character preview.");
+          characterFallback("The model must contain both Sleep and Wake animations.");
           return;
         }
         model = candidate;
-        canvas.hidden = true;
         $("#model-host").hidden = false;
         stage.classList.add("model-ready");
         sleep();
       });
       candidate.addEventListener("error", () => {
-        characterFallback("Custom character unavailable. Showing the block-character preview.");
+        characterFallback("Custom character unavailable. Please refresh to try again.");
       });
       $("#model-host").append(candidate);
-      // Give the model a rendered surface to load while keeping the preview visible.
+      // Load on a rendered, transparent surface; no placeholder model is shown.
       $("#model-host").hidden = false;
       $("#model-host").style.position = "absolute";
       $("#model-host").style.inset = "0";

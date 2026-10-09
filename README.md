@@ -8,7 +8,7 @@ assets/dummy.glb contains the repaired seated character, face, hat, clothing, sk
 
 Both clips load together. Clicking the left-facing character starts Wake with a 180 ms crossfade from the current sleeping pose. A pastel blue circle expands from the click position. The animation's finished event switches back to looping Sleep; there is no arbitrary timeout. Repeated clicks during Wake are ignored. Enter or Space also triggers the focused character. Floating zZs fade back in over 1.6 seconds after a short delay; cartoon bubbles appear when waking. A lowered “Click me!” label replaces the separate Wake up button. The background is transparent.
 
-Reduced-motion preference disables playback and effects. The character pauses when the tab is hidden; the library also skips offscreen animation updates. The old drawn character remains as a fallback if the model/library cannot load.
+Reduced-motion preference disables playback and effects. The character pauses when the tab is hidden; the library also skips offscreen animation updates. Only the custom model is displayed: the area stays empty while loading, and a short unavailable message appears if loading fails. There is no old placeholder character.
 
 The browser loads Google's open-source model-viewer 4.0.0 from its official hosted CDN. There is no branding badge or deployment attribution. Instrument Sans loads from Google Fonts. These services require internet access; the character asset is included locally.
 

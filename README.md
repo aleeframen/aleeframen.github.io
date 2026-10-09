@@ -4,15 +4,15 @@ A static GitHub Pages portfolio using Instrument Sans, pastel blue accents, curs
 
 ## Interactive Roblox character
 
-assets/dummy.glb contains the repaired seated character, face, hat, clothing, skeleton, and two baked clips: Sleep (4.42 seconds, looping) and Wake (3.35 seconds, playing once).
+assets/dummy.glb contains the repaired seated character, face, hat, clothing, skeleton, and two baked clips: Sleep (4.42 seconds, looping) and Wake (3.35 seconds, playing once), both made on Roblox Studio.
 
-Both clips load together. Clicking the left-facing character starts Wake with a 180 ms crossfade from the current sleeping pose. A pastel blue circle expands from the click position. The animation's finished event switches back to looping Sleep; there is no arbitrary timeout. Repeated clicks during Wake are ignored. Enter or Space also triggers the focused character. Floating zZs fade back in over 1.6 seconds after a short delay; cartoon bubbles appear when waking. A lowered “Click me!” label replaces the separate Wake up button. The background is transparent.
+Both clips load together. Clicking the model starts a Wake animation with a 180 ms crossfade from the current sleeping pose. A pastel blue circle expands from the click position. The animation's finished event switches back to looping the Sleep animation, there is no arbitrary timeout. Repeated clicks are ignored while the Wake animation is playing. Enter or Space also triggers the focused character. Floating zZs fade back in over 1.6 seconds after a short delay, with cartoon bubbles appearing when waking. A “Click me!” label is present to indicate users to click on the model.
 
-Reduced-motion preference disables playback and effects. The character pauses when the tab is hidden; the library also skips offscreen animation updates. Only the custom model is displayed: the area stays empty while loading, and a short unavailable message appears if loading fails. There is no old placeholder character.
+Reduced-motion preference disables playback and effects. The character pauses when the tab is hidden for performance, the library also skips offscreen animation updates. Only the custom model is displayed: the area stays empty while loading, and a short unavailable message appears if loading fails.
 
-The browser loads Google's open-source model-viewer 4.0.0 from its official hosted CDN. There is no branding badge or deployment attribution. Instrument Sans loads from Google Fonts. These services require internet access; the character asset is included locally.
+The browser loads Google's open-source model-viewer 4.0.0 from its official hosted CDN. There is no branding badge or deployment attribution. This website uses the Instrument Sans font, loaded from Google Fonts. These services require internet access, with the character asset included locally.
 
-The editable Blender file is ../portfolio-rig-seated.blend; do not upload it to the website. The GLB contains its textures. For future animation replacements, retain names Sleep and Wake and export selected PortfolioRig and Portfolio_ meshes as GLB, with animations enabled and NLA Tracks mode. Exclude preserved original rigs and experimental actions.
+The GLB (exported from Blender) contains the model's textures. For future animation replacements, retain names Sleep and Wake and export selected PortfolioRig and Portfolio_ meshes as GLB, with animations enabled and NLA Tracks mode. Exclude preserved original rigs and experimental actions.
 
 ## Preview locally
 
@@ -29,8 +29,6 @@ The GLB contains exactly Sleep and Wake with 24 channels each. JavaScript syntax
 ## Your GitHub address
 
 With your supplied account aleeframen, the free user-site address is https://aleeframen.github.io/ and repository name is aleeframen.github.io.
-
-https://aleef.github.io/ requires control of the GitHub user or organization named aleef and repository aleef.github.io. Naming a repository that under aleeframen will not grant the aleef address. If you control aleef, replace both occurrences of aleeframen in the remote below with aleef.
 
 Reference: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
 

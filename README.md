@@ -20,6 +20,10 @@ Clicking the model now also plays a short synthesized pop sound. The info popup 
 
 The Project Exchanger **More details** button opens `project-exchanger.html`. Its steam train has turning wheels, a small track bounce, and smoke carrying Day-trading, Research, Stock analysis, and etc. from the smokestack. Three illustrated sections cover market performance, the agent dashboard, and coin research, paired with `assets/exchanger-market.png`, `assets/exchanger-agents.png`, and `assets/exchanger-coin.png` respectively. The separate application link still points to `https://ops.projectexchanger.tools`. Page-specific styling is in `project-exchanger.css`.
 
+## Word It! details
+
+The Roblox Game Development **More details** button opens `word-it.html`. The page introduces Word It! and pairs three sections with `assets/word-it-lobby.png`, `assets/word-it-systems.png`, and `assets/word-it-emotes.png`. Its CSS-drawn Roblox wordmark spins the first O once on load; reduced-motion settings leave it still. The descriptions were checked against the connected Roblox Studio place without changing the game.
+
 ## Preview locally
 
 Open a terminal in this folder and run an HTTP server, not a file URL:
@@ -47,7 +51,7 @@ For a new copy that is not yet a Git repository, in PowerShell:
 ```powershell
 cd "C:\Users\aleef\Documents\Codex\2026-10-01\if-x20\outputs\portfolio"
 git init -b main
-git add index.html project-exchanger.html styles.css project-exchanger.css content.js app.js trading.js project-exchanger.js assets .nojekyll README.md
+git add index.html project-exchanger.html word-it.html styles.css project-exchanger.css word-it.css content.js app.js trading.js project-exchanger.js word-it.js assets .nojekyll README.md
 git diff --cached --stat
 git commit -m "Add portfolio with interactive sleeping character"
 git remote add origin https://github.com/aleeframen/aleeframen.github.io.git
@@ -62,7 +66,7 @@ For later changes:
 
 ```powershell
 git status
-git add index.html project-exchanger.html styles.css project-exchanger.css content.js app.js trading.js project-exchanger.js assets README.md
+git add index.html project-exchanger.html word-it.html styles.css project-exchanger.css word-it.css content.js app.js trading.js project-exchanger.js word-it.js assets README.md
 git diff --cached --stat
 git commit -m "Update portfolio"
 git push

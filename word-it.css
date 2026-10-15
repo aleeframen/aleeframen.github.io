@@ -1,0 +1,42 @@
+.word-it-page { overflow-x:hidden; }
+.word-it-header { position:relative; z-index:2; }
+.word-it-hero { min-height:620px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding-block:90px 105px; text-align:center; }
+.roblox-wordmark { display:inline-flex; align-items:center; justify-content:center; gap:.025em; color:#f3f5f8; font-size:clamp(45px,8.5vw,108px); font-weight:700; letter-spacing:-.075em; line-height:1; margin-bottom:64px; user-select:none; }
+.roblox-mark { position:relative; flex:none; width:.62em; height:.62em; margin-inline:.25em .18em; background:#f3f5f8; transform:rotate(-24deg); animation:roblox-arrive 1.35s cubic-bezier(.2,.75,.22,1) both; }
+.roblox-mark::after { content:""; position:absolute; inset:34%; background:var(--bg); }
+@keyframes roblox-arrive { 0% { transform:rotate(-384deg) scale(.72); opacity:0; } 70% { opacity:1; } 100% { transform:rotate(-24deg) scale(1); opacity:1; } }
+.word-it-hero h1 { display:inline-block; width:fit-content; margin:0; padding:0 .1em .2em; color:#a9cffa; background:linear-gradient(105deg,#608edf,#b4deff,#76aefa,#d2ebff,#608edf); background-size:220% 100%; background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:clamp(65px,10vw,120px); line-height:1.18; animation:word-it-gradient 7s ease-in-out infinite alternate; }
+@keyframes word-it-gradient { from { background-position:0% 50%; } to { background-position:100% 50%; } }
+.word-it-lead { max-width:710px; margin:17px auto 0; color:#bac4d0; font-size:clamp(17px,2vw,21px); line-height:1.72; }
+.word-it-story { border-top:1px solid var(--line); display:grid; grid-template-columns:1fr 1fr; gap:0 8%; padding-block:42px 105px; }
+.story-heading>span { display:block; color:var(--accent); font-size:12px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; margin-bottom:35px; }
+.story-heading h2 { font-size:clamp(40px,5.3vw,68px); font-weight:500; line-height:1.1; letter-spacing:-.055em; margin:0; }
+.story-heading h2 em { font-style:normal; color:var(--accent); }
+.story-description { max-width:510px; margin:58px 0 0; color:#b7c0cc; font-size:clamp(17px,1.8vw,19px); line-height:1.76; }
+.story-figure { grid-column:1/-1; display:flex; flex-direction:column; align-items:center; margin:59px 0 0; }
+.story-figure img { display:block; width:auto; height:auto; max-width:100%; max-height:750px; border-radius:3px; box-shadow:0 24px 70px #0003; }
+.story-figure figcaption { width:100%; display:flex; justify-content:space-between; gap:18px; margin-top:16px; color:#8e98a6; font-size:12px; letter-spacing:.04em; }
+.story-figure figcaption span:first-child { color:var(--accent); }
+.word-it-reflection { border-top:1px solid var(--line); padding-block:66px 75px; }
+.word-it-reflection p { max-width:800px; margin:0 auto; color:#b8c3d0; font-size:clamp(20px,2.3vw,27px); line-height:1.65; letter-spacing:-.02em; }
+.word-it-end { border-top:1px solid var(--line); padding-block:46px 105px; }
+.word-motion .reveal-on-scroll { opacity:0; transform:translateY(25px); transition:opacity .75s ease,transform .75s cubic-bezier(.2,.65,.25,1); }
+.word-motion .reveal-on-scroll.in-view { opacity:1; transform:none; }
+@media(max-width:800px) {
+  .word-it-hero { min-height:520px; padding-block:65px 80px; }
+  .roblox-wordmark { margin-bottom:55px; }
+  .word-it-story { grid-template-columns:1fr; padding-block:32px 72px; }
+  .story-heading>span { margin-bottom:22px; }
+  .story-description { margin:25px 0 0; }
+  .story-figure { margin-top:38px; }
+  .word-it-reflection { padding-block:50px 58px; }
+}
+@media(max-width:500px) {
+  .roblox-wordmark { font-size:clamp(42px,11vw,55px); }
+  .word-it-hero h1 { font-size:clamp(58px,15vw,76px); }
+  .story-figure figcaption { flex-direction:column; gap:3px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .roblox-mark,.word-it-hero h1 { animation:none; }
+  .word-motion .reveal-on-scroll { opacity:1; transform:none; }
+}

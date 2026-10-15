@@ -55,11 +55,12 @@ model-viewer:focus-visible { outline:1px solid #a9cffa; outline-offset:-12px; bo
 .info-toggle:hover,.info-toggle[aria-expanded="true"] { color:var(--accent); }
 .info-toggle:hover span,.info-toggle[aria-expanded="true"] span { border-color:var(--accent); }
 .info-toggle:focus-visible { outline-offset:2px; border-radius:50%; }
-.info-popup { position:absolute; bottom:calc(100% + 10px); right:0; width:min(260px,calc(100vw - 40px)); padding:13px 16px; border:1px solid #a9cffa24; border-radius:9px; background:#191d21; color:#c6ced6; font-size:13px; line-height:1.6; box-shadow:0 8px 28px #0004; animation:info-appear .18s ease-out; }
+.info-popup { position:absolute; bottom:calc(100% + 10px); right:0; width:min(290px,calc(100vw - 40px)); padding:13px 16px; border:1px solid #a9cffa24; border-radius:9px; background:#191d21; color:#c6ced6; font-size:13px; line-height:1.6; box-shadow:0 8px 28px #0004; animation:info-appear .18s ease-out; }
+.info-popup img { display:block; width:100%; height:auto; margin-top:12px; border-radius:5px; }
 @keyframes info-appear { from { opacity:0; translate:0 4px; } to { opacity:1; translate:0 0; } }
 .sleep-effects,.wake-effects { position:absolute; left:42%; top:21%; width:100px; height:90px; pointer-events:none; z-index:2; opacity:0; }
 .wake-effects { left:12%; top:15%; }
-.market-label { font-style:italic; }
+.market-label { font-style:italic; font-weight:500; font-synthesis:style; }
 .sleep-effects { transition:opacity .18s ease; }
 .model-ready[data-character-state="sleep"] .sleep-effects { opacity:1; transition:opacity 1.6s ease .25s; }
 .character-click-ripple { position:fixed; width:26px; height:26px; border:1px solid #a9cffa; background:#a9cffa30; border-radius:50%; pointer-events:none; z-index:20; animation:character-click .7s ease-out both; }

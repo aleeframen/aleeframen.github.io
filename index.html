@@ -9,7 +9,7 @@
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
   <script defer src="./content.js"></script>
   <script defer src="./trading.js"></script>
@@ -49,7 +49,10 @@
             <span id="character-label">Loading model...</span>
             <div class="character-info">
               <button id="character-info-toggle" class="info-toggle" type="button" aria-label="About this model and animation" aria-expanded="false" aria-controls="character-info-popup"><span aria-hidden="true">i</span></button>
-              <div id="character-info-popup" class="info-popup" role="note" hidden>This model and animation was made using Blender and Roblox Studio.</div>
+              <div id="character-info-popup" class="info-popup" role="note" hidden>
+                <span>This model and animation was made using Blender and Roblox Studio.</span>
+                <a href="./assets/blender-rig.png" target="_blank" rel="noopener noreferrer" aria-label="Open the Blender screenshot at full size"><img src="./assets/blender-rig.png" alt="Blender workspace showing the Roblox character rig and its bones" width="260" height="139" loading="lazy"></a>
+              </div>
             </div>
           </div>
           <p class="sr-only" id="model-status" aria-live="polite"></p>

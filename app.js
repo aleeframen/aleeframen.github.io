@@ -8,7 +8,7 @@
     return element;
   };
   const safeURL = (value) => {
-    try { const url = new URL(value); return url.protocol === "https:" ? url.href : ""; }
+    try { const url = new URL(value, location.href); return url.protocol === "https:" || url.origin === location.origin ? url.href : ""; }
     catch { return ""; }
   };
   $(".brand-icon").setAttribute("aria-label", `${data.name} — home`);
@@ -180,6 +180,7 @@
   }
   async function wake() {
     if (paused || !model || characterState !== "sleep") return;
+    playPop();
     characterState = "wake";
     stage.dataset.characterState = "wake";
     // Cached one-shot actions stay at their completed frame. Reset before the
@@ -192,6 +193,27 @@
     // to infinite repetitions after play({repetitions: 1}). No asset is fetched here.
     await model.updateComplete;
     model.play({repetitions: 1});
+  }
+  let popAudio;
+  function playPop() {
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+      popAudio ||= new AudioContextClass();
+      if (popAudio.state === "suspended") popAudio.resume().catch(() => {});
+      const now = popAudio.currentTime;
+      const tone = popAudio.createOscillator();
+      const volume = popAudio.createGain();
+      tone.type = "sine";
+      tone.frequency.setValueAtTime(620, now);
+      tone.frequency.exponentialRampToValueAtTime(260, now + 0.13);
+      volume.gain.setValueAtTime(0.0001, now);
+      volume.gain.exponentialRampToValueAtTime(0.09, now + 0.012);
+      volume.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+      tone.connect(volume).connect(popAudio.destination);
+      tone.start(now);
+      tone.stop(now + 0.17);
+    } catch { /* Audio is optional when the browser blocks sound. */ }
   }
   function clickRipple(event) {
     if (!Number.isFinite(event.clientX) || !Number.isFinite(event.clientY) || event.detail === 0) return;

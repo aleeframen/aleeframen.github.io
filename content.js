@@ -18,7 +18,7 @@ window.portfolio = {
       category: "Web Application",
       description: "An agentic dashboard for currently for personal use; a platform for agents working on a wide variety of tasks from trading to researching.",
       tags: [],
-      moreDetailsURL: "https://ops.projectexchanger.tools",
+      moreDetailsURL: "./project-exchanger.html",
       titleGradient: true,
       url: "https://ops.projectexchanger.tools",
       linkLabel: "ops.projectexchanger.tools",

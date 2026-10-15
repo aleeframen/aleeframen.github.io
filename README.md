@@ -14,6 +14,12 @@ The browser loads Google's open-source model-viewer 4.0.0 from its official host
 
 The GLB (exported from Blender) contains the model's textures. For future animation replacements, retain names Sleep and Wake and export selected PortfolioRig and Portfolio_ meshes as GLB, with animations enabled and NLA Tracks mode. Exclude preserved original rigs and experimental actions.
 
+Clicking the model now also plays a short synthesized pop sound. The info popup contains `assets/blender-rig.png`; the thumbnail opens the full screenshot when clicked.
+
+## Project Exchanger details
+
+The Project Exchanger **More details** button opens `project-exchanger.html`. Its steam train has turning wheels, a small track bounce, and smoke carrying Day-trading, Research, Stock analysis, and etc. from the smokestack. Three illustrated sections cover market performance, the agent dashboard, and coin research, paired with `assets/exchanger-market.png`, `assets/exchanger-agents.png`, and `assets/exchanger-coin.png` respectively. The separate application link still points to `https://ops.projectexchanger.tools`. Page-specific styling is in `project-exchanger.css`.
+
 ## Preview locally
 
 Open a terminal in this folder and run an HTTP server, not a file URL:
@@ -36,12 +42,12 @@ Reference: https://docs.github.com/en/pages/getting-started-with-github-pages/cr
 
 Create an empty public repository named aleeframen.github.io on GitHub first. Do not initialize it with a README, license, or gitignore for this workflow. If a repository already exists, clone it and review its files instead of using these new-repository instructions.
 
-This portfolio folder is not currently a Git repository. In PowerShell:
+For a new copy that is not yet a Git repository, in PowerShell:
 
 ```powershell
 cd "C:\Users\aleef\Documents\Codex\2026-10-01\if-x20\outputs\portfolio"
 git init -b main
-git add index.html styles.css content.js app.js trading.js assets .nojekyll README.md
+git add index.html project-exchanger.html styles.css project-exchanger.css content.js app.js trading.js project-exchanger.js assets .nojekyll README.md
 git diff --cached --stat
 git commit -m "Add portfolio with interactive sleeping character"
 git remote add origin https://github.com/aleeframen/aleeframen.github.io.git
@@ -56,7 +62,7 @@ For later changes:
 
 ```powershell
 git status
-git add index.html styles.css content.js app.js trading.js assets README.md
+git add index.html project-exchanger.html styles.css project-exchanger.css content.js app.js trading.js project-exchanger.js assets README.md
 git diff --cached --stat
 git commit -m "Update portfolio"
 git push
